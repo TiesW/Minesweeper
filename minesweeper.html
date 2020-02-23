@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minesweeper</title>
+<style>
+
+  body {
+    font-family: 'Helvetica Neue', sans-serif;
+    margin: 0;
+  }
+  .field button {
+    display: block;
+    width: 27px;
+    height: 27px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    /*Make the invisible numbers on the squares unselectable:*/
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none; 
+    font-family: 'Arial';
+    /* Hiding the text behind unopened squares (using rgba is not an option in this case, since I need to dynamically add different colors): */
+    text-indent: 150%;
+    overflow: hidden;
+    font-size: 0.0001em;
+  }
+
+  .field button:hover {
+    filter: brightness(85%) !important;
+  }
+  .field button:focus {
+    outline: 0;
+  }
+
+  .field button.flagMine {
+    background: #ff8c2d !important;
+  }
+  .field button.flagClear {
+    background: #ff8c2d !important;
+  }
+  .field button.flagClearRemoved {
+    background: white;
+  }
+  .field button.flagMineRemoved {
+    background: white;
+  }
+  .field button.clear {
+    background: rgb(255, 227, 100) !important;
+    opacity: 1 !important;
+    /* Once the square has been opened, it can no longer be clicked: */
+    pointer-events: none;
+    /* Making the text visible: */
+    text-indent: initial;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .field button.mineReveal:hover {
+    filter: brightness(100%) !important;
+  }
+  .field button.mineReveal {
+    background: #f72727 !important;
+    filter: brightness(100%) !important;
+    opacity: 1 !important;
+    pointer-events: none;
+  }
+
+  .pickLevel {
+      border: none;
+      background: rgb(235, 235, 235);
+      border-radius: 0.2rem;
+      padding: 2px;
+      margin: 2em;
+  }
+  .pickLevel:focus {
+      outline: none;
+  }
+  option {
+      background: white;
+  }
+
+  .play-again-btn {
+    display: inline-block;
+    margin: 2em;
+    height: 30px;
+    width: 100px;
+    line-height: 30px;
+    background: rgb(197, 197, 197);
+    color: white;
+    text-decoration: none;
+    border-radius: 0.2rem;
+  }
+  .play-again-btn:hover,
+  .play-again-btn:focus {
+    background: #797979;
+  }
+
+  #open {
+    display: inline-block;
+    margin: 1em;
+    height: 20px;
+    width: 65px;
+    background: rgb(18, 179, 85);
+    color: white;
+    text-decoration: none;
+    border-radius: 1rem;
+    border: none;
+  }
+
+  #flag {
+    display: inline-block;
+    margin: 1em;
+    height: 20px;
+    width: 65px;
+    background: #ff7300;
+    color: white;
+    text-decoration: none;
+    border-radius: 1rem;
+    border: none;
+  }
+
+  #removeFlag {
+    display: inline-block;
+    margin: 1em;
+    height: 20px;
+    width: 80px;
+    background: #ff5959;
+    color: white;
+    text-decoration: none;
+    border-radius: 1rem;
+    border: none;
+  }
+
+  #open:focus, #open:hover, #flag:focus, #flag:hover {
+    outline: 0;
+    filter: brightness(110%);
+  }
+
+  #tableFooter {
+    text-align: -webkit-center;
+  }
+
+  .top-text {
+    margin: 1rem;
+    font-size: 1rem;
+  }
+  
+  .center {
+    text-align: center;
+  }
+
+  table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid rgb(223, 223, 223);
+  }
+
+  /* Removing the spaces between the squares of the field: */
+  td {
+      padding: 0px;
+      margin: 0px;
+  }
+</style>
+</head>
+
+<body>
+
+    <div class="center">
+    <div id="play-again" class="play-again">
+        <select onchange="changeLevel()" id="pickLevel" class="pickLevel">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+        <a href="#" class="play-again-btn" id="play-again-btn">Play Again</a>
+    </di>
+    <table id="field" class="field" cellspacing="0">
+        <tbody>        
+        </tbody>
+    </table>
+    <div id="tableFooter"></div>
+    <div id="top-text" class="top-text">
+        <div><span id="infobox"></span></div>
+    </div>
+    </div>
+
+    <script src="main.js"></script>
+
+    </body>
+</html>
